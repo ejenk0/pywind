@@ -12,7 +12,7 @@ For example:
 "background-colour: (255, 0, 0); row; height: 10%; padding: 2px;"
 ```
 
-## Styling attributes
+## Quick styling reference
 
 Quick reference of the available styling attributes:
 
@@ -39,25 +39,25 @@ Percentage based values are computed based on the parent element's size. A paren
 
 Additionally, many styling attributes include aliases for internationalised versions of the attribute name, or for the sake of similarity with the CSS equivalent.
 
-### Directional Attributes
+## Directional Attributes
 
 Default: `row`
 
 The directional attributes have no value. They are used to set the direction of the element's child rendering.
 
-#### `row`
+### `row`
 
 If the row attribute is present in the style string, children of this element are rendered in a row.
 
-#### `column`
+### `column`
 
 If the column attribute is present in the style string, children of this element are rendered in a column.
 
-### Child alignment attributes
+## Child alignment attributes
 
 These attributes are used to align and justify children of an element.
 
-#### `justify` / `justify-content`
+### `justify` / `justify-content`
 
 The justify attribute is used to align children of an element along the primary axis. For rows, this means horizontal alignment and for columns, this means vertical alignment. Valid values are: `start`, `end`, `center` and `equally-spaced`.
 
@@ -67,7 +67,7 @@ The justify attribute is used to align children of an element along the primary 
 "justify: center;" # Centers children along the primary axis.
 ```
 
-#### `align` / `align-items`
+### `align` / `align-items`
 
 The align attribute is used to align children of an element along the cross-axis. For rows, this means vertical alignment and for columns it means horizontal alignment. Valid values are: `start`, `end` and `center`.
 
@@ -77,11 +77,11 @@ The align attribute is used to align children of an element along the cross-axis
 "align: end;" # Aligns children to the end of the cross-axis. (For rows, this means bottom-aligned and for columns, this means right-aligned.)
 ```
 
-### Size Attributes
+## Size Attributes
 
 The size attributes are used to set both fixed and relative sizes of elements.
 
-#### `height`
+### `height`
 
 Default value: `100%`
 
@@ -93,7 +93,7 @@ The value of the `height` attribute is a percentage or a fixed size. If a percen
 "height: 100%;" # height fill the parent's height minus padding
 ```
 
-#### `width`
+### `width`
 
 Default value: `100%`
 
@@ -105,11 +105,11 @@ The value of the `width` attribute is a percentage or a fixed size. If a percent
 "width: 100%;" # width fill the parent's width minus padding
 ```
 
-### Padding
+## Padding
 
 The padding attribute is used to set internal padding of an element. It will be considered when rendering child elements. Padding can be set individually for each side of an element.
 
-#### `padding`
+### `padding`
 
 Default value: `0px`
 
@@ -121,11 +121,11 @@ The value of the padding attribute can be one, two or four values, each being ei
 "padding: 2px 0.5% 1px 0.2%" # left, top, right, bottom = 2px, 0.5%, 1px, 0.2%
 ```
 
-### Margin
+## Margin
 
 The margin attribute is used to offset an element's rendered content by some amount. An element with margin will take up the same amount of space in the parent element as one without.
 
-#### `margin`
+### `margin`
 
 Default value: `0px`
 
@@ -137,11 +137,11 @@ The margin attribute's value is written in the same way as the padding attribute
 "margin: 2px 0.5% 1px 0.2%" # left, top, right, bottom = 2px, 0.5%, 1px, 0.2%
 ```
 
-### Colours
+## Colours
 
 The following attributes are used to set the colours of different parts of an element. Generally, the attribute name can be written in British or American english, and the value can be anything supported by the pygame.Color class (RGB, Hex, colour string etc.)
 
-#### `text-colour` / `text-color`
+### `text-colour` / `text-color`
 
 Default value: `black`
 
@@ -154,7 +154,7 @@ Its value is converted to a pygame.Color object.
 "text-colour: blue;" # text colour is blue
 ```
 
-#### `background-colour` / `background-color`
+### `background-colour` / `background-color`
 
 Default value: `white`
 
@@ -170,7 +170,7 @@ If the background colour is set to `transparent`, the element will be filled wit
 "background-colour: transparent;" # background fill colour is the current colour-key
 ```
 
-#### `border-colour` / `border-color`
+### `border-colour` / `border-color`
 
 Default value: `black`
 
@@ -182,7 +182,7 @@ The border colour attribute sets the border colour of an element. Its value is p
 "border-colour: blue;" # border colour is blue
 ```
 
-#### `colour-key` / `color-key`
+### `colour-key` / `color-key`
 
 Default value: `(220, 221, 222)`
 
@@ -190,11 +190,11 @@ The colour-key attribute is used for the transparent areas of the element's imag
 
 A notable exception is the Image class which defaults this attribute to `None` and therefore don't support transparency by default. This is due to the fact that images may often contain traces of the default colour key.
 
-### Border
+## Border
 
 The border attributes set the width and radius of the element's border. Border is not included in size calculations.
 
-#### `border` / `border-width`
+### `border` / `border-width`
 
 Default value: `0px`
 
@@ -205,7 +205,7 @@ The border / border-width attribute sets the width of the element's border eithe
 "border-width: 1px;" # border width is 1px
 ```
 
-#### `border-radius` / `rounding`
+### `border-radius` / `rounding`
 
 Default value: `0px`
 
@@ -216,11 +216,11 @@ The border-radius / rounding attribute sets the radius (rounding) of the element
 "rounding: 1px;" # border radius is 1px
 ```
 
-### Font
+## Font
 
 Attributes related to the font of the text of an element.
 
-#### `font` / `font-family`
+### `font` / `font-family`
 
 Default value: `Arial`
 
@@ -233,7 +233,7 @@ Otherwise it is assumed to be font file path (`myfont.ttf`) and is joined with t
 "font: myfont.ttf;" # font is myfont.ttf
 ```
 
-#### `font-size`
+### `font-size`
 
 Default value: `12px`
 
