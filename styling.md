@@ -4,7 +4,7 @@ This page outlines style attributes and their possible values for elements.
 
 ## The style string
 
-The style string can be passed to the Style component of an element to be converted into styling attributes. It is a semicolon separated list of style attributes and values (like a combination of in-line CSS and TailwindCSS).
+The style string can be passed to the `pywind.Style` component of an element to be converted into styling attributes. It is a semicolon separated list of style attributes and values (like a combination of in-line CSS and TailwindCSS).
 
 For example:
 
@@ -20,8 +20,7 @@ Attribute | Description | Possible values
 --- | --- | ---
 [`width`](#width) | Sets the width of the element. | % or px
 [`height`](#height) | Sets the height of the element. | % or px
-[`row`](#row) | Sets the element to be a row.
-[`column`](#column) | Sets the element to be a column.
+[`direction`](#direction) | Sets the direction of child elements. | `row` or `column`
 [`justify-content`](#justify--justify-content) | Sets the primary axis alignment of the element's children. | `start`, `end`, `center`, `equally-spaced`
 [`align-items`](#align--align-items) | Sets the cross-axis alignment of the element's children. | `start`, `end`, `center`
 [`padding`](#padding-1) | Sets the paddings of the element. | % or px (`all`), (`horiz`, `vert`), (`left`, `top`, `right`, `bottom`)
@@ -34,30 +33,57 @@ Attribute | Description | Possible values
 [`border`](#border--border-width) | The border width of the element. | px
 [`border-radius`](#border-radius--rounding) | The border radius of the element. | px
 [`colour-key`](#colour-key--color-key) | The transparency colour key of the element. | Hex, RGB(A) or name
+[`hover: attr: val;`](#hover) | Hovered styling. | Any attribute-style pair
+[`active: attr: val;`](#active) | Active (clicked) styling. | Any attribute-style pair
+
+All attributes also support `inherit` as a value. This means that the value of the attribute is inherited from the **calculated** value on the parent element (percentages are calculated on the parent before being inherited).
 
 Percentage based values are computed based on the parent element's size. A parent Element must be present on the Style for these to work, otherwise a warning will be raised and the default value will be used.
 
 Additionally, many styling attributes include aliases for internationalised versions of the attribute name, or for the sake of similarity with the CSS equivalent.
 
-## Directional Attributes
+## Positioning Attributes
 
-Default: `row`
+### `positioning`
 
-The directional attributes have no value. They are used to set the direction of the element's child rendering.
+The positioning attribute is used to set the positioning style of the element. `auto` is the default value for most elements and means the element will get its position from its parent element (e.g. it will take its correct place in a row or column).
 
-### `row`
+`absolute` will set the element to be positioned absolutely relative to its parent and won't be considered in the row or column layout of the parent element. An absolutly positioned element should have a set `pos` value.
 
-If the row attribute is present in the style string, children of this element are rendered in a row.
+**An absolutely positioned element can have either an `pywind.Element` or a `pygame.Surface` as a parent.**
 
-### `column`
+### `pos`
 
-If the column attribute is present in the style string, children of this element are rendered in a column.
+Default value: `0px 0px`
 
-## Child alignment attributes
+The `pos` value is **only used for absolutely positioned elements**. It sets the position of the element relative to its parent rect either in absolute pixels or as a percentage of the parent element's width/height.
+
+Additionally, `pos-topleft`, `pos-midtop`, `pos-topright`, `pos-midright`, `pos-bottomright`, `pos-midbottom`, `pos-bottomleft`, `pos-midleft`, `pos-center` are also available to position based on other parts of the elements Rect.
+
+```python
+"pos: 10px 10px" # 10px from the left and 10px from the top
+"pos-center: 50% 50%" # centered inside the parent element
+"pos-topright: 100% 5px" # against the right edge of the parent element 5px from the top
+```
+
+## Child Alignment Attributes
 
 These attributes are used to align and justify children of an element.
 
+### `direction`
+
+Default value: `row`
+
+The direction attribute is used to set the direction of the children of the element. `row` is the default value and means the children will be laid out in a row. `column` means the children will be laid out in a column.
+
+```python
+"direction: row;" # children will be laid out in a row
+"direction: column;" # children will be laid out in a column
+```
+
 ### `justify` / `justify-content`
+
+Default value: `start`
 
 The justify attribute is used to align children of an element along the primary axis. For rows, this means horizontal alignment and for columns, this means vertical alignment. Valid values are: `start`, `end`, `center` and `equally-spaced`.
 
@@ -68,6 +94,8 @@ The justify attribute is used to align children of an element along the primary 
 ```
 
 ### `align` / `align-items`
+
+Default value: `center`
 
 The align attribute is used to align children of an element along the cross-axis. For rows, this means vertical alignment and for columns it means horizontal alignment. Valid values are: `start`, `end` and `center`.
 
@@ -143,7 +171,7 @@ The following attributes are used to set the colours of different parts of an el
 
 ### `text-colour` / `text-color`
 
-Default value: `black`
+Default value: `inherit`
 
 The text colour attribute sets the text colour of an element.
 Its value is converted to a pygame.Color object.
@@ -222,7 +250,7 @@ Attributes related to the font of the text of an element.
 
 ### `font` / `font-family`
 
-Default value: `Arial`
+Default value: `inherit`
 
 The font attribute sets the font family of the element. If it is a font available on the current system or it is a tuple it is passed directly to the `pygame.font.SysFont` constructor.
 
@@ -235,11 +263,33 @@ Otherwise it is assumed to be font file path (`myfont.ttf`) and is joined with t
 
 ### `font-size`
 
-Default value: `12px`
+Default value: `inherit`
 
 The font-size attribute sets the size of the font. It can be a fixed pixel size or a percentage of the element's height.
 
 ```python
 "font-size: 10px;" # font size is 10px
 "font-size: 10%;" # font size is 10% of the element's height
+```
+
+## Interaction
+
+The interaction attributes relate to the styling of the element as it is interacted with.
+
+### `hover`
+
+`hover` acts like a decorator. It is used to add a styling behaviour to an element when it is hovered over and not being clicked.
+
+```python
+"hover: background-colour: #ff0000;" # background fill colour is red when hovered over
+"hover: background-colour: #00ff00; hover: font-size: 20px;" # background fill colour is green and font size is 20px when hovered over
+```
+
+### `active`
+
+`active` acts like a decorator. It is used to add a styling behaviour to an element when it is being clicked on or when it remains active after being clicked (such as radio buttons and focused input fields).
+
+```python
+"active: background-colour: #ff0000;" # background fill colour is red when active
+"active: background-colour: #00ff00; active: font-size: 20px;" # background fill colour is green and font size is 20px when active
 ```
