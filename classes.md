@@ -68,6 +68,7 @@ Attribute | Value
 `active: background-colour` | `grey60`
 `active: border-colour` | `grey30`
 `active: text-colour` | `grey15`
+`cursor` | `{pygame.SYSTEM_CURSOR_HAND}`
 
 ## pywind.Style
 

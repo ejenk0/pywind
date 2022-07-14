@@ -33,6 +33,8 @@ Attribute | Description | Possible values
 [`border`](#border--border-width) | The border width of the element. | px
 [`border-radius`](#border-radius--rounding) | The border radius of the element. | px
 [`colour-key`](#colour-key--color-key) | The transparency colour key of the element. | Hex, RGB(A) or name
+[`positioning`](#positioning) | The positioning style of the element | `auto` or `absolute`
+[`pos`](#pos) | The position of an absolutely positioned element | `left`, `top` (% or px)
 [`hover: attr: val;`](#hover) | Hovered styling. | Any attribute-style pair
 [`active: attr: val;`](#active) | Active (clicked) styling. | Any attribute-style pair
 
@@ -45,6 +47,8 @@ Additionally, many styling attributes include aliases for internationalised vers
 ## Positioning Attributes
 
 ### `positioning`
+
+Default value: `auto`
 
 The positioning attribute is used to set the positioning style of the element. `auto` is the default value for most elements and means the element will get its position from its parent element (e.g. it will take its correct place in a row or column).
 
@@ -141,7 +145,7 @@ The padding attribute is used to set internal padding of an element. It will be 
 
 Default value: `0px`
 
-The value of the padding attribute can be one, two or four values, each being either a fixed pixel amount or a percentage of the parent height/width.
+The value of the padding attribute can be one, two or four values, each being either a fixed pixel amount or a percentage of the elements height/width.
 
 ```python
 "padding: 2px" # 2px of padding on all sides
@@ -157,7 +161,7 @@ The margin attribute is used to offset an element's rendered content by some amo
 
 Default value: `0px`
 
-The margin attribute's value is written in the same way as the padding attribute.
+The margin attribute's value is written in the same way as the padding attribute. Percentages, like with padding, relate to the **element's** height/width, not its parent. A 1% margin will be 1% of the element's height/width.
 
 ```python
 "margin: 2px" # 2px of margin on all sides
@@ -292,4 +296,16 @@ The interaction attributes relate to the styling of the element as it is interac
 ```python
 "active: background-colour: #ff0000;" # background fill colour is red when active
 "active: background-colour: #00ff00; active: font-size: 20px;" # background fill colour is green and font size is 20px when active
+```
+
+### `cursor`
+
+Default value: `None`
+
+`cursor` sets the cursor to be used when the element is hovered over. This will be passed directly to the `pygame.mouse.set_cursor` function unless it is `None`.
+
+`hover: cursor:` is equivalent to just `cursor:`, but `active: cursor:` can still be set for a different cursor on an active element.
+
+```python
+f"cursor: {pygame.SYSTEM_CURSOR_HAND};" # cursor is set to a hand when this element is hovered over
 ```
